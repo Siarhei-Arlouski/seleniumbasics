@@ -1,3 +1,4 @@
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,6 +17,7 @@ public class MainTest {
         driver.get("https://the-internet.herokuapp.com/");
         List<WebElement> objLinks = driver.findElements(By.tagName("a"));
         objLinks.get(10).click();
+        driver.quit();
     }
 
     @Test
@@ -28,6 +30,7 @@ public class MainTest {
         String titleHomePage = driver.getTitle();
 
         Assert.assertEquals(titleHomePage, "Online Store | My Store");
+        driver.quit();
     }
 
     @Test
@@ -40,6 +43,7 @@ public class MainTest {
         String titleRDPage = driver.getTitle();
 
         Assert.assertEquals(titleRDPage, "Rubber Ducks | My Store");
+        driver.quit();
     }
 
     @Test
@@ -52,6 +56,7 @@ public class MainTest {
         String titleDIPage = driver.getTitle();
 
         Assert.assertEquals(titleDIPage, "Delivery Information | My Store");
+        driver.quit();
     }
 
     @Test
@@ -64,7 +69,7 @@ public class MainTest {
         String titleTACPage = driver.getTitle();
 
         Assert.assertEquals(titleTACPage, "Terms & Conditions | My Store");
-
+        driver.quit();
     }
 
     @Test
@@ -79,6 +84,7 @@ public class MainTest {
         Actions builder = new Actions(driver);
 
         builder.doubleClick(IEIcon).doubleClick(WordIcon).doubleClick(PPIcon).perform();
+        driver.quit();
     }
 
     @Test
@@ -92,11 +98,61 @@ public class MainTest {
         Actions builder = new Actions(driver);
 
         builder.dragAndDrop(ball, gate).perform();
+        driver.quit();
     }
 
     @Test
-    void alerts() {
-        
+    void alertJS() {
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://the-internet.herokuapp.com/javascript_alerts");
+
+        WebElement JSAlert = driver.findElement(By.cssSelector("[onclick='jsAlert()']"));
+        JSAlert.click();
+
+        Alert alert = driver.switchTo().alert();
+        String alertText = alert.getText();
+        Assert.assertEquals(alertText, "I am a JS Alert");
+        alert.accept();
+
+        WebElement result = driver.findElement(By.xpath("//*[@id='result']"));
+        String resultText = result.getText();
+        Assert.assertEquals(resultText, "You successfully clicked an alert");
+        driver.quit();
+    }
+
+    @Test
+    void confirmJS() {
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://the-internet.herokuapp.com/javascript_alerts");
+
+        WebElement JSAlert = driver.findElement(By.cssSelector("[onclick='jsConfirm()']"));
+        JSAlert.click();
+
+        Alert alert = driver.switchTo().alert();
+        alert.dismiss();
+
+        WebElement result = driver.findElement(By.xpath("//*[@id='result']"));
+        String resultText = result.getText();
+        Assert.assertEquals(resultText, "You clicked: Cancel");
+        driver.quit();
+    }
+
+    @Test
+    void promptJS() {
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://the-internet.herokuapp.com/javascript_alerts");
+
+        WebElement JSAlert = driver.findElement(By.cssSelector("[onclick='jsPrompt()']"));
+        JSAlert.click();
+
+        Alert alert = driver.switchTo().alert();
+        alert.sendKeys("Hello World!");
+        alert.accept();
+
+        WebElement result = driver.findElement(By.xpath("//*[@id='result']"));
+        String resultText = result.getText();
+        Assert.assertEquals(resultText, "You entered: Hello World!");
+        driver.quit();
     }
 
 }
