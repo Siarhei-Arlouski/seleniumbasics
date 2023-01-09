@@ -6,13 +6,13 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainTest {
 
     @Test
-    void objLinks() {
+    void objLinksTest() {
         WebDriver driver = new ChromeDriver();
         driver.get("https://the-internet.herokuapp.com/");
         List<WebElement> objLinks = driver.findElements(By.tagName("a"));
@@ -21,7 +21,7 @@ public class MainTest {
     }
 
     @Test
-    void homePage() {
+    void homePageTest() {
         WebDriver driver = new ChromeDriver();
         driver.get("https://litecart.stqa.ru/en/");
         WebElement homePageLink = driver.findElement(By.xpath("//i[@title='Home']"));
@@ -34,7 +34,7 @@ public class MainTest {
     }
 
     @Test
-    void rubberDucksPage() {
+    void rubberDucksPageTest() {
         WebDriver driver = new ChromeDriver();
         driver.get("https://litecart.stqa.ru/en/");
         WebElement rubberDucksPageLink = driver.findElement(By.xpath("//nav[@id='site-menu']//a[text()='Rubber Ducks']"));
@@ -47,7 +47,7 @@ public class MainTest {
     }
 
     @Test
-    void deliveryInformationPage() {
+    void deliveryInformationPageTest() {
         WebDriver driver = new ChromeDriver();
         driver.get("https://litecart.stqa.ru/en/");
         WebElement deliveryInformationPageLink = driver.findElement(By.xpath("//*[text()='Delivery Information']"));
@@ -60,7 +60,7 @@ public class MainTest {
     }
 
     @Test
-    void termsAndConditions() {
+    void termsAndConditionsTest() {
         WebDriver driver = new ChromeDriver();
         driver.get("https://litecart.stqa.ru/en/");
         WebElement termsAndConditionsLink = driver.findElement(By.xpath("//*[text()='Terms & Conditions']"));
@@ -73,7 +73,7 @@ public class MainTest {
     }
 
     @Test
-    void iconDoubleClick() {
+    void iconDoubleClickTest() {
         WebDriver driver = new ChromeDriver();
         driver.get("http://www.pbclibrary.org/mousing/click3.htm");
 
@@ -88,7 +88,7 @@ public class MainTest {
     }
 
     @Test
-    void ballDragAndDrop() {
+    void ballDragAndDropTest() {
         WebDriver driver = new ChromeDriver();
         driver.get("https://learn.javascript.ru/article/mouse-drag-and-drop/ball4/");
 
@@ -102,7 +102,7 @@ public class MainTest {
     }
 
     @Test
-    void alertJS() {
+    void alertJSTest() {
         WebDriver driver = new ChromeDriver();
         driver.get("https://the-internet.herokuapp.com/javascript_alerts");
 
@@ -121,7 +121,7 @@ public class MainTest {
     }
 
     @Test
-    void confirmJS() {
+    void confirmJSTest() {
         WebDriver driver = new ChromeDriver();
         driver.get("https://the-internet.herokuapp.com/javascript_alerts");
 
@@ -138,7 +138,7 @@ public class MainTest {
     }
 
     @Test
-    void promptJS() {
+    void promptJSTest() {
         WebDriver driver = new ChromeDriver();
         driver.get("https://the-internet.herokuapp.com/javascript_alerts");
 
@@ -153,5 +153,38 @@ public class MainTest {
         String resultText = result.getText();
         Assert.assertEquals(resultText, "You entered: Hello World!");
         driver.quit();
+    }
+
+    @Test
+    void sortByNameTest() {
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://litecart.stqa.ru/en/");
+
+        WebElement rubberDucksMenuButton = driver.findElement(By.cssSelector("#site-menu .category-1"));
+        WebElement subcategoryMenuButton = driver.findElement(By.cssSelector("#site-menu .category-2 a"));
+
+        Actions builder = new Actions(driver);
+        builder.moveToElement(rubberDucksMenuButton)
+                .click(subcategoryMenuButton)
+                .perform();
+
+        WebElement nameButton = driver.findElement(By.xpath("//*[@class='button'][text()='Name']"));
+
+        builder.click(nameButton).perform();
+
+        ArrayList<String> expectedSortListByName = new ArrayList<>();
+        expectedSortListByName.add("Green Duck");
+        expectedSortListByName.add("Yellow Duck");
+
+        List<WebElement> actualSortListByName = driver.findElements(By.className("name"));
+
+        Assert.assertEquals(actualSortListByName.get(0).getText(), expectedSortListByName.get(0));
+        Assert.assertEquals(actualSortListByName.get(1).getText(), expectedSortListByName.get(1));
+        driver.quit();
+    }
+
+    @Test
+    void sortByPriceTest() {
+
     }
 }
