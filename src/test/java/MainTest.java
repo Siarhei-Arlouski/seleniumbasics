@@ -154,5 +154,4 @@ public class MainTest {
         Assert.assertEquals(resultText, "You entered: Hello World!");
         driver.quit();
     }
-
 }
