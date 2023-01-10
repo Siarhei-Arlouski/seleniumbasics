@@ -185,6 +185,67 @@ public class MainTest {
 
     @Test
     void sortByPriceTest() {
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://litecart.stqa.ru/en/");
 
+        WebElement rubberDucksMenuButton = driver.findElement(By.cssSelector("#site-menu .category-1"));
+        WebElement subcategoryMenuButton = driver.findElement(By.cssSelector("#site-menu .category-2 a"));
+
+        Actions builder = new Actions(driver);
+        builder.moveToElement(rubberDucksMenuButton)
+                .click(subcategoryMenuButton)
+                .perform();
+
+        ArrayList<String> expectedSortListByPrice = new ArrayList<>();
+        expectedSortListByPrice.add("$18");
+        expectedSortListByPrice.add("$20");
+
+        List<WebElement> actualSortListByPrice = driver.findElements(By.className("campaign-price"));
+        actualSortListByPrice.add(driver.findElement(By.className("price")));
+
+        Assert.assertEquals(actualSortListByPrice.get(0).getText(), expectedSortListByPrice.get(0));
+        Assert.assertEquals(actualSortListByPrice.get(1).getText(), expectedSortListByPrice.get(1));
+
+        driver.quit();
+    }
+
+    @Test
+    void greenDuckLabelTest() {
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://litecart.stqa.ru/en/");
+
+        WebElement rubberDucksMenuButton = driver.findElement(By.cssSelector("#site-menu .category-1"));
+        WebElement subcategoryMenuButton = driver.findElement(By.cssSelector("#site-menu .category-2 a"));
+
+        Actions builder = new Actions(driver);
+        builder.moveToElement(rubberDucksMenuButton)
+                .click(subcategoryMenuButton)
+                .perform();
+
+        WebElement greenDuckLabel = driver.findElement(By.xpath("//*[@title='Green Duck']/*/*[@class='sticker new']"));
+
+        Assert.assertEquals(greenDuckLabel.getText(), "NEW");
+
+        driver.quit();
+    }
+
+    @Test
+    void yellowDuckLabelTest() {
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://litecart.stqa.ru/en/");
+
+        WebElement rubberDucksMenuButton = driver.findElement(By.cssSelector("#site-menu .category-1"));
+        WebElement subcategoryMenuButton = driver.findElement(By.cssSelector("#site-menu .category-2 a"));
+
+        Actions builder = new Actions(driver);
+        builder.moveToElement(rubberDucksMenuButton)
+                .click(subcategoryMenuButton)
+                .perform();
+
+        WebElement greenDuckLabel = driver.findElement(By.xpath("//*[@title='Yellow Duck']/*/*[@class='sticker sale']"));
+
+        Assert.assertEquals(greenDuckLabel.getText(), "SALE");
+
+        driver.quit();
     }
 }
