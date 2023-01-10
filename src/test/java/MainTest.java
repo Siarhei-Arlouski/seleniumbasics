@@ -12,7 +12,7 @@ import java.util.List;
 public class MainTest {
 
     @Test
-    void objLinksTest() {
+    public void objLinksTest() {
         WebDriver driver = new ChromeDriver();
         driver.get("https://the-internet.herokuapp.com/");
         List<WebElement> objLinks = driver.findElements(By.tagName("a"));
@@ -21,7 +21,7 @@ public class MainTest {
     }
 
     @Test
-    void homePageTest() {
+    public void homePageTest() {
         WebDriver driver = new ChromeDriver();
         driver.get("https://litecart.stqa.ru/en/");
         WebElement homePageLink = driver.findElement(By.xpath("//i[@title='Home']"));
@@ -34,7 +34,7 @@ public class MainTest {
     }
 
     @Test
-    void rubberDucksPageTest() {
+    public void rubberDucksPageTest() {
         WebDriver driver = new ChromeDriver();
         driver.get("https://litecart.stqa.ru/en/");
         WebElement rubberDucksPageLink = driver.findElement(By.xpath("//nav[@id='site-menu']//a[text()='Rubber Ducks']"));
@@ -47,7 +47,7 @@ public class MainTest {
     }
 
     @Test
-    void deliveryInformationPageTest() {
+    public void deliveryInformationPageTest() {
         WebDriver driver = new ChromeDriver();
         driver.get("https://litecart.stqa.ru/en/");
         WebElement deliveryInformationPageLink = driver.findElement(By.xpath("//*[text()='Delivery Information']"));
@@ -60,7 +60,7 @@ public class MainTest {
     }
 
     @Test
-    void termsAndConditionsTest() {
+    public void termsAndConditionsTest() {
         WebDriver driver = new ChromeDriver();
         driver.get("https://litecart.stqa.ru/en/");
         WebElement termsAndConditionsLink = driver.findElement(By.xpath("//*[text()='Terms & Conditions']"));
@@ -73,7 +73,7 @@ public class MainTest {
     }
 
     @Test
-    void iconDoubleClickTest() {
+    public void iconDoubleClickTest() {
         WebDriver driver = new ChromeDriver();
         driver.get("http://www.pbclibrary.org/mousing/click3.htm");
 
@@ -88,7 +88,7 @@ public class MainTest {
     }
 
     @Test
-    void ballDragAndDropTest() {
+    public void ballDragAndDropTest() {
         WebDriver driver = new ChromeDriver();
         driver.get("https://learn.javascript.ru/article/mouse-drag-and-drop/ball4/");
 
@@ -102,7 +102,7 @@ public class MainTest {
     }
 
     @Test
-    void alertJSTest() {
+    public void alertJSTest() {
         WebDriver driver = new ChromeDriver();
         driver.get("https://the-internet.herokuapp.com/javascript_alerts");
 
@@ -121,7 +121,7 @@ public class MainTest {
     }
 
     @Test
-    void confirmJSTest() {
+    public void confirmJSTest() {
         WebDriver driver = new ChromeDriver();
         driver.get("https://the-internet.herokuapp.com/javascript_alerts");
 
@@ -138,7 +138,7 @@ public class MainTest {
     }
 
     @Test
-    void promptJSTest() {
+    public void promptJSTest() {
         WebDriver driver = new ChromeDriver();
         driver.get("https://the-internet.herokuapp.com/javascript_alerts");
 
@@ -156,7 +156,7 @@ public class MainTest {
     }
 
     @Test
-    void sortByNameTest() {
+    public void sortByNameTest() {
         WebDriver driver = new ChromeDriver();
         driver.get("https://litecart.stqa.ru/en/");
 
@@ -184,7 +184,7 @@ public class MainTest {
     }
 
     @Test
-    void sortByPriceTest() {
+    public void sortByPriceTest() {
         WebDriver driver = new ChromeDriver();
         driver.get("https://litecart.stqa.ru/en/");
 
@@ -210,7 +210,7 @@ public class MainTest {
     }
 
     @Test
-    void greenDuckLabelTest() {
+    public void greenDuckLabelTest() {
         WebDriver driver = new ChromeDriver();
         driver.get("https://litecart.stqa.ru/en/");
 
@@ -230,7 +230,7 @@ public class MainTest {
     }
 
     @Test
-    void yellowDuckLabelTest() {
+    public void yellowDuckLabelTest() {
         WebDriver driver = new ChromeDriver();
         driver.get("https://litecart.stqa.ru/en/");
 
@@ -245,6 +245,30 @@ public class MainTest {
         WebElement greenDuckLabel = driver.findElement(By.xpath("//*[@title='Yellow Duck']/*/*[@class='sticker sale']"));
 
         Assert.assertEquals(greenDuckLabel.getText(), "SALE");
+
+        driver.quit();
+    }
+
+    @Test
+    public void openLiteCartSiteTest() {
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://litecart.stqa.ru/en/");
+
+        WebElement liteCartSiteButton = driver.findElement(By.cssSelector("[title='Free e-commerce platform']"));
+
+        String initialTab = driver.getWindowHandle();
+        liteCartSiteButton.click();
+        String liteCartSiteTab = driver.getWindowHandles().toArray()[1].toString();
+        driver.switchTo().window(liteCartSiteTab);
+
+        String liteCartSiteTitle = driver.getTitle();
+        Assert.assertEquals(liteCartSiteTitle, "LiteCart - Free shopping cart platform");
+
+        driver.close();
+        driver.switchTo().window(initialTab);
+
+        String initTabTitle = driver.getTitle();
+        Assert.assertEquals(initTabTitle, "Online Store | My Store");
 
         driver.quit();
     }
