@@ -2,17 +2,18 @@ package pageobject.objectbased;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pageobject.objectbased.pages.HomePage;
+import pageobject.objectbased.pages.SubcategoryPage;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TestClass extends TestBase{
     @Test
     public void homePageTest() {
-        WebElement homePageLink = driver.findElement(By.xpath("//i[@title='Home']"));
-        homePageLink.click();
+        HomePage homePage = new HomePage(driver);
+        homePage.homePageButtonClick();
 
         String titleHomePage = driver.getTitle();
 
@@ -21,8 +22,8 @@ public class TestClass extends TestBase{
 
     @Test
     public void rubberDucksPageTest() {
-        WebElement rubberDucksPageLink = driver.findElement(By.xpath("//nav[@id='site-menu']//a[text()='Rubber Ducks']"));
-        rubberDucksPageLink.click();
+        HomePage homePage = new HomePage(driver);
+        homePage.rubberDucksPageButtonClick();
 
         String titleRDPage = driver.getTitle();
 
@@ -31,8 +32,8 @@ public class TestClass extends TestBase{
 
     @Test
     public void deliveryInformationPageTest() {
-        WebElement deliveryInformationPageLink = driver.findElement(By.xpath("//*[text()='Delivery Information']"));
-        deliveryInformationPageLink.click();
+        HomePage homePage = new HomePage(driver);
+        homePage.deliveryInformationPageLinkClick();
 
         String titleDIPage = driver.getTitle();
 
@@ -41,8 +42,8 @@ public class TestClass extends TestBase{
 
     @Test
     public void termsAndConditionsTest() {
-        WebElement termsAndConditionsLink = driver.findElement(By.xpath("//*[text()='Terms & Conditions']"));
-        termsAndConditionsLink.click();
+        HomePage homePage = new HomePage(driver);
+        homePage.termsAndConditionsLinkClick();
 
         String titleTACPage = driver.getTitle();
 
@@ -51,17 +52,11 @@ public class TestClass extends TestBase{
 
     @Test
     public void sortByNameTest() {
-        WebElement rubberDucksMenuButton = driver.findElement(By.cssSelector("#site-menu .category-1"));
-        WebElement subcategoryMenuButton = driver.findElement(By.cssSelector("#site-menu .category-2 a"));
+        HomePage homePage = new HomePage(driver);
+        homePage.subcategoryButtonClick();
 
-        Actions builder = new Actions(driver);
-        builder.moveToElement(rubberDucksMenuButton)
-                .click(subcategoryMenuButton)
-                .perform();
-
-        WebElement nameButton = driver.findElement(By.xpath("//*[@class='button'][text()='Name']"));
-
-        builder.click(nameButton).perform();
+        SubcategoryPage subcategoryPage = new SubcategoryPage(driver);
+        subcategoryPage.nameButtonClick();
 
         ArrayList<String> expectedSortListByName = new ArrayList<>();
         expectedSortListByName.add("Green Duck");
@@ -75,13 +70,8 @@ public class TestClass extends TestBase{
 
     @Test
     public void sortByPriceTest() {
-        WebElement rubberDucksMenuButton = driver.findElement(By.cssSelector("#site-menu .category-1"));
-        WebElement subcategoryMenuButton = driver.findElement(By.cssSelector("#site-menu .category-2 a"));
-
-        Actions builder = new Actions(driver);
-        builder.moveToElement(rubberDucksMenuButton)
-                .click(subcategoryMenuButton)
-                .perform();
+        HomePage homePage = new HomePage(driver);
+        homePage.subcategoryButtonClick();
 
         ArrayList<String> expectedSortListByPrice = new ArrayList<>();
         expectedSortListByPrice.add("$18");
@@ -96,50 +86,37 @@ public class TestClass extends TestBase{
 
     @Test
     public void greenDuckLabelTest() {
-        WebElement rubberDucksMenuButton = driver.findElement(By.cssSelector("#site-menu .category-1"));
-        WebElement subcategoryMenuButton = driver.findElement(By.cssSelector("#site-menu .category-2 a"));
+        HomePage homePage = new HomePage(driver);
+        homePage.subcategoryButtonClick();
 
-        Actions builder = new Actions(driver);
-        builder.moveToElement(rubberDucksMenuButton)
-                .click(subcategoryMenuButton)
-                .perform();
+        SubcategoryPage subcategoryPage = new SubcategoryPage(driver);
 
-        WebElement greenDuckLabel = driver.findElement(By.xpath("//*[@title='Green Duck']/*/*[@class='sticker new']"));
-
-        Assert.assertEquals(greenDuckLabel.getText(), "NEW");
+        Assert.assertEquals(subcategoryPage.greenDuckLabelText(), "NEW");
     }
 
     @Test
     public void yellowDuckLabelTest() {
-        WebElement rubberDucksMenuButton = driver.findElement(By.cssSelector("#site-menu .category-1"));
-        WebElement subcategoryMenuButton = driver.findElement(By.cssSelector("#site-menu .category-2 a"));
+        HomePage homePage = new HomePage(driver);
+        homePage.subcategoryButtonClick();
 
-        Actions builder = new Actions(driver);
-        builder.moveToElement(rubberDucksMenuButton)
-                .click(subcategoryMenuButton)
-                .perform();
+        SubcategoryPage subcategoryPage = new SubcategoryPage(driver);
 
-        WebElement greenDuckLabel = driver.findElement(By.xpath("//*[@title='Yellow Duck']/*/*[@class='sticker sale']"));
-
-        Assert.assertEquals(greenDuckLabel.getText(), "SALE");
+        Assert.assertEquals(subcategoryPage.yellowDuckLabelText(), "SALE");
     }
 
     @Test
     public void openLiteCartSiteTest() {
-        WebElement liteCartSiteButton = driver.findElement(By.cssSelector("[title='Free e-commerce platform']"));
+        HomePage homePage = new HomePage(driver);
 
         String initialTab = driver.getWindowHandle();
-        liteCartSiteButton.click();
+        homePage.liteCartLinkClick();
         String liteCartSiteTab = driver.getWindowHandles().toArray()[1].toString();
-        driver.switchTo().window(liteCartSiteTab);
 
-        String liteCartSiteTitle = driver.getTitle();
-        Assert.assertEquals(liteCartSiteTitle, "LiteCart - Free shopping cart platform");
+        driver.switchTo().window(liteCartSiteTab);
+        Assert.assertEquals(driver.getTitle(), "LiteCart - Free shopping cart platform");
 
         driver.close();
         driver.switchTo().window(initialTab);
-
-        String initTabTitle = driver.getTitle();
-        Assert.assertEquals(initTabTitle, "Online Store | My Store");
+        Assert.assertEquals(driver.getTitle(), "Online Store | My Store");
     }
 }

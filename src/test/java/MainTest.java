@@ -242,9 +242,9 @@ public class MainTest {
                 .click(subcategoryMenuButton)
                 .perform();
 
-        WebElement greenDuckLabel = driver.findElement(By.xpath("//*[@title='Yellow Duck']/*/*[@class='sticker sale']"));
+        WebElement yellowDuckLabel = driver.findElement(By.xpath("//*[@title='Yellow Duck']/*/*[@class='sticker sale']"));
 
-        Assert.assertEquals(greenDuckLabel.getText(), "SALE");
+        Assert.assertEquals(yellowDuckLabel.getText(), "SALE");
 
         driver.quit();
     }
