@@ -1,0 +1,15 @@
+pageobject\staticpageobject\pages\HomePageSPO.class
+MainTest.class
+pageobject\pagefactory\pages\HomePagePF.class
+pageobject\pagefactory\pages\SubcategoryPagePF.class
+pageobject\staticpageobject\pages\SubcategoryPageSPO.class
+pageobject\objectbased\TestClassOB.class
+pageobject\staticpageobject\TestBaseSPO.class
+pageobject\objectbased\pages\SubcategoryPageOB.class
+pageobject\staticpageobject\enums\Browser.class
+pageobject\pagefactory\TestBasePF.class
+pageobject\staticpageobject\TestBaseSPO$1.class
+pageobject\objectbased\pages\HomePageOB.class
+pageobject\pagefactory\TestClassPF.class
+pageobject\objectbased\TestBaseOB.class
+pageobject\staticpageobject\TestClassSPO.class
