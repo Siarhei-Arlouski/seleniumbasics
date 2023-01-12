@@ -4,16 +4,16 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pageobject.objectbased.pages.HomePage;
-import pageobject.objectbased.pages.SubcategoryPage;
+import pageobject.objectbased.pages.HomePageOB;
+import pageobject.objectbased.pages.SubcategoryPageOB;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestClass extends TestBase{
+public class TestClassOB extends TestBaseOB {
     @Test
     public void homePageTest() {
-        HomePage homePage = new HomePage(driver);
-        homePage.homePageButtonClick();
+        HomePageOB homePageOB = new HomePageOB(driver);
+        homePageOB.homePageButtonClick();
 
         String titleHomePage = driver.getTitle();
 
@@ -22,8 +22,8 @@ public class TestClass extends TestBase{
 
     @Test
     public void rubberDucksPageTest() {
-        HomePage homePage = new HomePage(driver);
-        homePage.rubberDucksPageButtonClick();
+        HomePageOB homePageOB = new HomePageOB(driver);
+        homePageOB.rubberDucksPageButtonClick();
 
         String titleRDPage = driver.getTitle();
 
@@ -32,8 +32,8 @@ public class TestClass extends TestBase{
 
     @Test
     public void deliveryInformationPageTest() {
-        HomePage homePage = new HomePage(driver);
-        homePage.deliveryInformationPageLinkClick();
+        HomePageOB homePageOB = new HomePageOB(driver);
+        homePageOB.deliveryInformationPageLinkClick();
 
         String titleDIPage = driver.getTitle();
 
@@ -42,8 +42,8 @@ public class TestClass extends TestBase{
 
     @Test
     public void termsAndConditionsTest() {
-        HomePage homePage = new HomePage(driver);
-        homePage.termsAndConditionsLinkClick();
+        HomePageOB homePageOB = new HomePageOB(driver);
+        homePageOB.termsAndConditionsLinkClick();
 
         String titleTACPage = driver.getTitle();
 
@@ -52,11 +52,11 @@ public class TestClass extends TestBase{
 
     @Test
     public void sortByNameTest() {
-        HomePage homePage = new HomePage(driver);
-        homePage.subcategoryButtonClick();
+        HomePageOB homePageOB = new HomePageOB(driver);
+        homePageOB.subcategoryButtonClick();
 
-        SubcategoryPage subcategoryPage = new SubcategoryPage(driver);
-        subcategoryPage.nameButtonClick();
+        SubcategoryPageOB subcategoryPageOB = new SubcategoryPageOB(driver);
+        subcategoryPageOB.nameButtonClick();
 
         ArrayList<String> expectedSortListByName = new ArrayList<>();
         expectedSortListByName.add("Green Duck");
@@ -70,8 +70,8 @@ public class TestClass extends TestBase{
 
     @Test
     public void sortByPriceTest() {
-        HomePage homePage = new HomePage(driver);
-        homePage.subcategoryButtonClick();
+        HomePageOB homePageOB = new HomePageOB(driver);
+        homePageOB.subcategoryButtonClick();
 
         ArrayList<String> expectedSortListByPrice = new ArrayList<>();
         expectedSortListByPrice.add("$18");
@@ -86,30 +86,30 @@ public class TestClass extends TestBase{
 
     @Test
     public void greenDuckLabelTest() {
-        HomePage homePage = new HomePage(driver);
-        homePage.subcategoryButtonClick();
+        HomePageOB homePageOB = new HomePageOB(driver);
+        homePageOB.subcategoryButtonClick();
 
-        SubcategoryPage subcategoryPage = new SubcategoryPage(driver);
+        SubcategoryPageOB subcategoryPageOB = new SubcategoryPageOB(driver);
 
-        Assert.assertEquals(subcategoryPage.greenDuckLabelText(), "NEW");
+        Assert.assertEquals(subcategoryPageOB.greenDuckLabelText(), "NEW");
     }
 
     @Test
     public void yellowDuckLabelTest() {
-        HomePage homePage = new HomePage(driver);
-        homePage.subcategoryButtonClick();
+        HomePageOB homePageOB = new HomePageOB(driver);
+        homePageOB.subcategoryButtonClick();
 
-        SubcategoryPage subcategoryPage = new SubcategoryPage(driver);
+        SubcategoryPageOB subcategoryPageOB = new SubcategoryPageOB(driver);
 
-        Assert.assertEquals(subcategoryPage.yellowDuckLabelText(), "SALE");
+        Assert.assertEquals(subcategoryPageOB.yellowDuckLabelText(), "SALE");
     }
 
     @Test
     public void openLiteCartSiteTest() {
-        HomePage homePage = new HomePage(driver);
+        HomePageOB homePageOB = new HomePageOB(driver);
 
         String initialTab = driver.getWindowHandle();
-        homePage.liteCartLinkClick();
+        homePageOB.liteCartLinkClick();
         String liteCartSiteTab = driver.getWindowHandles().toArray()[1].toString();
 
         driver.switchTo().window(liteCartSiteTab);

@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 
-public class HomePage {
+public class HomePageOB {
     private final By homePageButton = By.xpath("//i[@title='Home']");
     private final By rubberDucksPageButton = By.xpath("//nav[@id='site-menu']//a[text()='Rubber Ducks']");
     private final By subcategoryButton = By.xpath("//*[@class='category-2']/a");
@@ -14,7 +14,7 @@ public class HomePage {
 
     private final WebDriver driver;
 
-    public HomePage(WebDriver driver) {
+    public HomePageOB(WebDriver driver) {
         this.driver = driver;
     }
 
