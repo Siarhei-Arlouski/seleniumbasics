@@ -49,7 +49,6 @@ public class TestClassSPO extends TestBaseSPO{
     @Test
     public void sortByNameTest() {
         HomePageSPO.subcategoryButtonClick(driver);
-
         SubcategoryPageSPO.nameButtonClick(driver);
 
         ArrayList<String> expectedSortListByName = new ArrayList<>();
